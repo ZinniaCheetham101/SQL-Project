@@ -66,3 +66,12 @@ MIN(replacement_cost) AS min_replacement_cost,
 MAX(replacement_cost) AS max_replacement_cost,
 AVG(replacement_cost) AS avg_replacement_cost
 From film
+
+SELECT MODE() WITHIN GROUP(ORDER BY rating) AS rating_modal_value
+FROM film
+
+SELECT MODE() WITHIN GROUP(ORDER BY first_name) AS first_name_modal_value,
+MODE() WITHIN GROUP(ORDER BY last_name) AS last_name_modal_value,
+MODE() WITHIN GROUP(ORDER BY email) AS email_modal_value,
+MODE() WITHIN GROUP(ORDER BY address_id) AS address_id_modal_value,
+FROM customer
