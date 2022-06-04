@@ -1,0 +1,51 @@
+#Use SQL to find the top 10 countries in terms of customer numbers
+SELECT A.country,
+  E.amount
+FROM country A
+INNER JOIN city B ON A.country_id = B.country_id
+INNER JOIN address C ON B.city_id = C.city_id
+INNER JOIN customer D ON C.address_id = D.address_id
+INNER JOIN payment E ON D.Customer_id = E.customer_id
+GROUP BY country,
+  amount
+ORDER BY amount DESC;
+
+#Use SQL to find the top 10 cities within the top 10 countries previously identified
+SELECT A.country,
+  B.city,
+  COUNT (customer_id)
+FROM country A
+INNER JOIN city B ON A.country_id = B.country_id
+INNER JOIN address C ON B.city_id = C.city_id
+INNER JOIN customer D ON C.address_id = D.address_id
+WHERE country IN('India',
+  'China',
+  'United States',
+  'Japan',
+  'Mexico',
+  'Brazil',
+  'Russian Federation',
+  'Phillippines',
+  'Turkey',
+  'Indonesia')
+GROUP BY city,
+  country
+ORDER BY count DESC;
+
+#use SQL to write a query to find the top 5 customers in the top 10 cities who have paid the highest total amounts to Rockbuster
+SELECT E.country,
+D.city,
+B.Customer_id,
+B. first_name,
+B. last_name,
+SUM(amount) AS total_amount_paid
+FROM payment A
+INNER JOIN customer B ON A.customer_id= B.customer_id
+INNER JOIN address C ON B.address_id =C.address_id
+INNER JOIN city D ON C.city_id =D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+WHERE country IN ('India', 'China', 'United States', 'Japan', 'Mexico', 'Brazil', 'Russian Federation', 'Phillippines', 'Turkey', 'Indonesia')
+AND city IN ('Aurora', 'Atlixco', 'Pingxiang', 'Adoni', 'Dhule', 'Kurashiki', 'Xintai', 'Sivas', 'Celaya', 'Nezahualcyotl', 'Jakarta')
+GROUP BY D.city, E.country, B.customer_id, B.First_name, B.last_name
+ORDER BBY total_amount_paid DESC
+LIMIT 5;
