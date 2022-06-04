@@ -1,0 +1,12 @@
+#Use SQL to find the total amount of revenue of each country
+COPY
+(SELECT E.country,
+SUM(amount) AS total_amount_of_revenue
+FROM payment A
+INNER JOIN customer B ON A.customer_id=B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+GROUP BY E.country
+ORDER BY total_amount_of_revenue DESC)
+TO 'D:\Achievement 3\Export.csv' DELIMITER ',' CSV HEADER;
