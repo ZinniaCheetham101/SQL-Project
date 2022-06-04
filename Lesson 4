@@ -1,3 +1,4 @@
+#Select only the desired columns and organize the data
 SELECT
 title,
 release_year,
@@ -18,3 +19,17 @@ GROUP BY rating
 SELECT rating, MAX(rental_rate)
 FROM film
 GROUP BY rating
+
+#Extract the data into Excel for further analysis
+SELECT rating, AVG(rental_rate)
+MIN(rental_rate)
+MAX(rental_rate)
+FROM film
+GROUP BY rating
+COPY
+(SELECT rating, AVG(rental_rate)
+MIN(rental_rate)
+MAX(rental_rate)
+FROM film
+GROUP BY rating)
+TO 'D:\Achievement 3\Export.csv' DELIMITER ',' CSV HEADER;
