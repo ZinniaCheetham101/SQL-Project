@@ -1,0 +1,68 @@
+#Query for Duplicate Data
+SELECT film_id,
+Title,
+Release_year,
+Language_id,
+Rental_duration,
+Rental_rate,
+length,
+Replacement_cost,
+Rating,
+count (*)
+FROM film
+GROUP BY film_id,
+title,
+Release_year,
+Language_id,
+Rental_duration,
+Rental_rate,
+Length,
+Replacement_cost,
+Rating
+HAVING COUNT (*) >1; 
+
+SELECT customer_id,
+store_id,
+address_id,
+first_name,
+last_name,
+count(*)
+FROM customer
+GROUP BY customer_id,
+store_id,
+address_id,
+first_name,
+last_name
+HAVING COUNT(*) >1; 
+
+SELECT DISTINCT film_id
+FROM film
+ORDER BY film_id ASC
+
+SELECT DISTINCT Rating
+FROM film
+
+SELECT replacement_cost,
+COUNT(*)
+FROM film
+GROUP BY replacement_cost
+
+#Check for missing data
+SELECT COUNT(rental_rate) AS count_rent_values,
+       COUNT(*) AS count_rows
+FROM film;
+
+#Summarize the Data by calculating descriptive statistics
+SELECT MIN(release_year) AS min_release_year,
+MAX(release_year) AS max_release_year,
+AVG(release_year) AS avg_release_year,
+MIN(rental_rate) AS min_rental_rate,
+MAX(rental_rate) AS max_rental_rate,
+AVG(rental_rate) AS avg_rental_rate,
+MIN(length) AS min_length,
+MAX(length) AS max_length,
+AVG(length) AS avg_length,
+MIN(replacement_cost) AS min_replacement_cost,
+MAX(replacement_cost) AS max_replacement_cost,
+AVG(replacement_cost) AS avg_replacement_cost
+From film
